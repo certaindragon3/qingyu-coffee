@@ -300,14 +300,20 @@ a { color: inherit; }
   max-width: 40em; color: var(--ink-soft);
   margin: -1rem 0 3rem; font-size: 0.95rem;
 }
-.menu-list { list-style: none; margin: 0; padding: 0; counter-reset: item; }
+.menu-list { list-style: none; margin: 0; padding: 0; counter-reset: item; border-bottom: 1px solid var(--line); }
 .menu-item {
   padding: 1.75rem 0 1.5rem;
   border-top: 1px solid var(--line);
   transition: padding-left 0.4s var(--ease);
 }
-.menu-item:last-child { border-bottom: 1px solid var(--line); }
 .menu-item:hover { padding-left: 0.75rem; }
+.menu-item[hidden] { display: none; }
+.menu-item.is-picked {
+  padding-left: 1rem;
+  box-shadow: inset 3px 0 0 var(--accent);
+  background: linear-gradient(90deg, rgba(180, 85, 45, 0.07), transparent 70%);
+}
+.menu-item:focus { outline: none; }
 .menu-item-head {
   display: flex; align-items: baseline; gap: 1rem;
   flex-wrap: wrap;
@@ -345,6 +351,104 @@ a { color: inherit; }
   margin: 1.5rem 0 0; font-size: 0.8rem;
   letter-spacing: 0.06em; color: var(--ink-soft);
 }
+
+/* ---------- 烘焙新鲜度 ---------- */
+.freshness {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px; background: var(--line);
+  border: 1px solid var(--line);
+  margin: 0 0 2.5rem;
+}
+.freshness[hidden] { display: none; }
+.freshness-item { background: var(--paper); padding: 1rem 1.25rem; }
+.freshness dt {
+  font-size: 0.72rem; letter-spacing: 0.22em; color: var(--accent);
+  margin-bottom: 0.25rem;
+}
+.freshness dd { margin: 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 0.6rem; }
+.freshness strong { font-family: var(--serif); font-weight: 400; font-size: 1.15rem; }
+.freshness dd span { font-size: 0.8rem; color: var(--ink-soft); }
+
+/* ---------- 选豆小测试 ---------- */
+.bean-quiz {
+  background: var(--paper-deep);
+  border: 1px solid var(--ink);
+  padding: clamp(1.25rem, 3vw, 2rem);
+  margin: 0 0 2.5rem;
+}
+.bean-quiz[hidden], .bean-quiz [hidden] { display: none; }
+.quiz-intro {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem 2rem; flex-wrap: wrap;
+}
+.quiz-title, .quiz-result-name {
+  font-family: var(--serif); font-weight: 400;
+  font-size: clamp(1.3rem, 2.4vw, 1.7rem); margin: 0;
+}
+.quiz-sub { margin: 0.25rem 0 0; color: var(--ink-soft); font-size: 0.92rem; }
+.quiz-start { cursor: pointer; font-family: inherit; }
+.quiz-step { border: 0; margin: 0; padding: 0; min-width: 0; }
+.quiz-step legend {
+  font-family: var(--serif); font-size: clamp(1.15rem, 2vw, 1.4rem);
+  padding: 0; margin-bottom: 1.25rem;
+}
+.quiz-count {
+  display: block; font-family: var(--sans); font-size: 0.72rem;
+  letter-spacing: 0.22em; color: var(--accent); margin-bottom: 0.35rem;
+}
+.quiz-options {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.75rem;
+}
+.quiz-options label { position: relative; cursor: pointer; }
+.quiz-options input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.quiz-options label > span {
+  display: flex; flex-direction: column; height: 100%;
+  border: 1px solid var(--ink); background: var(--paper);
+  padding: 0.9rem 1rem; font-size: 0.98rem;
+  transition: background-color 0.3s var(--ease), color 0.3s var(--ease);
+}
+.quiz-options small { font-size: 0.78rem; color: var(--ink-soft); margin-top: 0.2rem; transition: color 0.3s var(--ease); }
+.quiz-options label:hover > span { background: var(--paper-deep); }
+.quiz-options input:checked + span { background: var(--ink); color: var(--paper); }
+.quiz-options input:checked + span small { color: rgba(244, 239, 231, 0.7); }
+.quiz-options input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 3px; }
+.quiz-nav { margin-top: 1rem; min-height: 1.5rem; }
+.text-btn {
+  background: none; border: 0; padding: 0; cursor: pointer;
+  font: inherit; font-size: 0.875rem; letter-spacing: 0.06em; color: var(--ink);
+  border-bottom: 1px solid var(--ink);
+  transition: color 0.3s, border-color 0.3s;
+}
+.text-btn:hover { color: var(--accent); border-color: var(--accent); }
+.quiz-result-label { font-size: 0.72rem; letter-spacing: 0.22em; color: var(--accent); margin: 0 0 0.35rem; }
+.quiz-result-meta { margin: 0.5rem 0 0; font-size: 0.85rem; letter-spacing: 0.06em; color: var(--ink-soft); }
+.quiz-result-why { margin: 0.75rem 0 1.5rem; max-width: 40em; }
+.quiz-result-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 1rem 1.75rem; }
+.quiz-result-actions .btn { cursor: pointer; font-family: inherit; }
+
+/* ---------- 风味筛选 ---------- */
+.menu-filters {
+  display: flex; flex-wrap: wrap; align-items: center;
+  gap: 0.75rem 2rem; margin: 0 0 1.75rem;
+}
+.menu-filters[hidden] { display: none; }
+.filter-group { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem; }
+.filter-label {
+  font-size: 0.72rem; letter-spacing: 0.22em; color: var(--ink-soft);
+  margin-right: 0.35rem;
+}
+.chip {
+  font: inherit; font-size: 0.82rem; letter-spacing: 0.04em;
+  background: transparent; color: var(--ink);
+  border: 1px solid var(--line); border-radius: 999px;
+  padding: 0.25rem 0.85rem; cursor: pointer;
+  transition: background-color 0.25s var(--ease), color 0.25s var(--ease), border-color 0.25s var(--ease);
+}
+.chip:hover { border-color: var(--ink); }
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.filter-status { margin: 0 0 0 auto; font-size: 0.8rem; color: var(--ink-soft); letter-spacing: 0.06em; }
+.menu-empty { margin: 1.5rem 0 0; color: var(--ink-soft); font-size: 0.92rem; }
+.menu-empty .text-btn { margin-left: 0.5rem; }
 
 /* ---------- 空间 ---------- */
 .space { background: var(--ink); color: var(--paper); max-width: none; }
@@ -488,6 +592,10 @@ address { font-style: normal; font-size: 1.05rem; line-height: 1.8; }
   .menu-price { width: 100%; }
   .story-facts li, .space-facts li { grid-template-columns: 1fr; gap: 0.15rem; }
   .section-title small { display: block; margin: 0.5rem 0 0; }
+  .freshness { grid-template-columns: 1fr; }
+  .quiz-options { grid-template-columns: 1fr; }
+  .menu-filters { gap: 0.75rem; }
+  .filter-status { margin-left: 0; width: 100%; }
   body.nav-open { overflow: hidden; }
 }
 

@@ -153,8 +153,100 @@
       </div>
       <p class="menu-note reveal">以下单品门店手冲与 200g 熟豆同步供应。风味描述为本季杯测记录，豆单随产季滚动更新。</p>
 
+      <!-- 烘焙新鲜度 -->
+      <dl class="freshness reveal" id="freshness" hidden>
+        <div class="freshness-item">
+          <dt>最近一炉</dt>
+          <dd><strong id="freshLast"></strong><span id="freshLastRel"></span></dd>
+        </div>
+        <div class="freshness-item">
+          <dt>下一炉</dt>
+          <dd><strong id="freshNext"></strong><span id="freshNextRel"></span></dd>
+        </div>
+        <div class="freshness-item">
+          <dt>在售熟豆</dt>
+          <dd><strong id="freshWindow"></strong><span>二十一天售卖期内</span></dd>
+        </div>
+      </dl>
+
+      <!-- 选豆小测试 -->
+      <div class="bean-quiz reveal" id="beanQuiz" hidden>
+        <div class="quiz-intro" id="quizIntro">
+          <div>
+            <h3 class="quiz-title">不知道选哪支？</h3>
+            <p class="quiz-sub">回答三个问题，我们从当季六支里帮你挑一支。</p>
+          </div>
+          <button type="button" class="btn btn-solid quiz-start" id="quizStart">帮我选一支豆</button>
+        </div>
+
+        <form class="quiz-form" id="quizForm" hidden>
+          <fieldset class="quiz-step" data-step="1">
+            <legend><span class="quiz-count">1 / 3</span>你更喜欢哪种风味？</legend>
+            <div class="quiz-options">
+              <label><input type="radio" name="flavor" value="floral" required><span>花香茶感<small>茉莉、白花、伯爵茶</small></span></label>
+              <label><input type="radio" name="flavor" value="fruity"><span>果汁感<small>莓果、柑橘、黑加仑</small></span></label>
+              <label><input type="radio" name="flavor" value="cocoa"><span>坚果可可<small>榛子、焦糖、巧克力</small></span></label>
+            </div>
+          </fieldset>
+          <fieldset class="quiz-step" data-step="2" hidden>
+            <legend><span class="quiz-count">2 / 3</span>你通常怎么喝？</legend>
+            <div class="quiz-options">
+              <label><input type="radio" name="use" value="hot" required><span>热手冲<small>喝清咖，慢慢放凉</small></span></label>
+              <label><input type="radio" name="use" value="iced"><span>冰冲<small>夏天、或者就是爱冰的</small></span></label>
+              <label><input type="radio" name="use" value="milk"><span>加奶<small>拿铁、澳白</small></span></label>
+            </div>
+          </fieldset>
+          <fieldset class="quiz-step" data-step="3" hidden>
+            <legend><span class="quiz-count">3 / 3</span>你对酸度的接受程度？</legend>
+            <div class="quiz-options">
+              <label><input type="radio" name="acidity" value="3" required><span>越明亮越好<small>喜欢果汁一样的酸</small></span></label>
+              <label><input type="radio" name="acidity" value="2"><span>适中就好<small>有酸但要圆润</small></span></label>
+              <label><input type="radio" name="acidity" value="1"><span>尽量低酸<small>醇厚、甜感优先</small></span></label>
+            </div>
+          </fieldset>
+          <div class="quiz-nav">
+            <button type="button" class="quiz-back text-btn" id="quizBack" hidden>上一题</button>
+          </div>
+        </form>
+
+        <div class="quiz-result" id="quizResult" hidden aria-live="polite">
+          <p class="quiz-result-label">为你推荐</p>
+          <h3 class="quiz-result-name" id="quizResultName"></h3>
+          <p class="quiz-result-meta" id="quizResultMeta"></p>
+          <p class="quiz-result-why" id="quizResultWhy"></p>
+          <div class="quiz-result-actions">
+            <button type="button" class="btn btn-solid" id="quizShow">在豆单中查看</button>
+            <button type="button" class="text-btn" id="quizRestart">重新选一次</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 风味筛选 -->
+      <div class="menu-filters reveal" id="menuFilters" hidden>
+        <div class="filter-group" role="group" aria-label="按风味筛选">
+          <span class="filter-label">风味</span>
+          <button type="button" class="chip" data-filter="flavor" data-value="" aria-pressed="true">全部</button>
+          <button type="button" class="chip" data-filter="flavor" data-value="floral" aria-pressed="false">花香茶感</button>
+          <button type="button" class="chip" data-filter="flavor" data-value="fruity" aria-pressed="false">果汁感</button>
+          <button type="button" class="chip" data-filter="flavor" data-value="cocoa" aria-pressed="false">坚果可可</button>
+        </div>
+        <div class="filter-group" role="group" aria-label="按处理法筛选">
+          <span class="filter-label">处理法</span>
+          <button type="button" class="chip" data-filter="process" data-value="" aria-pressed="true">全部</button>
+          <button type="button" class="chip" data-filter="process" data-value="washed" aria-pressed="false">水洗</button>
+          <button type="button" class="chip" data-filter="process" data-value="natural" aria-pressed="false">日晒</button>
+        </div>
+        <div class="filter-group" role="group" aria-label="按喝法筛选">
+          <span class="filter-label">适合</span>
+          <button type="button" class="chip" data-filter="use" data-value="" aria-pressed="true">全部</button>
+          <button type="button" class="chip" data-filter="use" data-value="iced" aria-pressed="false">冰冲</button>
+          <button type="button" class="chip" data-filter="use" data-value="milk" aria-pressed="false">奶咖</button>
+        </div>
+        <p class="filter-status" id="filterStatus" aria-live="polite"></p>
+      </div>
+
       <ol class="menu-list">
-        <li class="menu-item reveal">
+        <li class="menu-item reveal" id="bean-sidamo" data-flavor="floral" data-process="washed" data-use="hot iced" data-acidity="3">
           <div class="menu-item-head">
             <h3>西达摩 · 古伎水洗</h3>
             <span class="menu-tag">埃塞俄比亚</span>
@@ -163,7 +255,7 @@
           </div>
           <p class="menu-desc">海拔 2,100m，水洗处理。白花、佛手柑与蜂蜜水，冷下来有清甜的柠檬草尾韵。</p>
         </li>
-        <li class="menu-item reveal" data-reveal-delay="60">
+        <li class="menu-item reveal" id="bean-huila" data-flavor="fruity cocoa" data-process="natural" data-use="hot milk" data-acidity="2" data-reveal-delay="60">
           <div class="menu-item-head">
             <h3>慧兰 · 粉波旁日晒</h3>
             <span class="menu-tag">哥伦比亚</span>
@@ -172,7 +264,7 @@
           </div>
           <p class="menu-desc">小农微批次日晒。成熟莓果、黑巧克力与红酒般的发酵感，做奶咖也立得住。</p>
         </li>
-        <li class="menu-item reveal" data-reveal-delay="120">
+        <li class="menu-item reveal" id="bean-boquete" data-flavor="floral fruity" data-process="washed" data-use="hot" data-acidity="2" data-reveal-delay="120">
           <div class="menu-item-head">
             <h3>波奎特 · 瑰夏水洗 <em class="menu-limited">本季限量</em></h3>
             <span class="menu-tag">巴拿马</span>
@@ -181,7 +273,7 @@
           </div>
           <p class="menu-desc">翡翠庄园同坡地小农批次。茉莉、水蜜桃与伯爵茶，每年只到港八十公斤。</p>
         </li>
-        <li class="menu-item reveal" data-reveal-delay="180">
+        <li class="menu-item reveal" id="bean-nyeri" data-flavor="fruity" data-process="washed" data-use="hot iced" data-acidity="3" data-reveal-delay="180">
           <div class="menu-item-head">
             <h3>涅里 · AA 水洗</h3>
             <span class="menu-tag">肯尼亚</span>
@@ -190,7 +282,7 @@
           </div>
           <p class="menu-desc">双重水洗。黑加仑、小番茄与红糖，酸质明亮，冰冲表现尤其出色。</p>
         </li>
-        <li class="menu-item reveal" data-reveal-delay="240">
+        <li class="menu-item reveal" id="bean-baoshan" data-flavor="cocoa" data-process="natural" data-use="hot" data-acidity="1" data-reveal-delay="240">
           <div class="menu-item-head">
             <h3>保山 · 铁皮卡日晒</h3>
             <span class="menu-tag">中国云南</span>
@@ -199,7 +291,7 @@
           </div>
           <p class="menu-desc">潞江坝干热河谷。桂圆干、焦糖与普洱茶感，是我们每年必留的家乡豆。</p>
         </li>
-        <li class="menu-item reveal" data-reveal-delay="300">
+        <li class="menu-item reveal" id="bean-antigua" data-flavor="cocoa" data-process="washed" data-use="hot milk" data-acidity="1" data-reveal-delay="300">
           <div class="menu-item-head">
             <h3>安提瓜 · 波旁水洗</h3>
             <span class="menu-tag">危地马拉</span>
@@ -209,6 +301,7 @@
           <p class="menu-desc">火山灰土壤。烤榛子、可可与柔和烟熏感，适合做每日的第一杯。</p>
         </li>
       </ol>
+      <p class="menu-empty" id="menuEmpty" hidden>没有同时符合这些条件的豆子。<button type="button" class="text-btn" id="filterReset">清除筛选</button></p>
       <p class="menu-footnote reveal">价格为 手冲单杯 / 200g 熟豆。熟豆仅售烘焙后二十一天内批次，恕不磨粉代存。</p>
     </section>
 
