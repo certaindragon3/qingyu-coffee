@@ -229,10 +229,20 @@
       showStep(0);
     });
 
-    form.addEventListener("change", function (e) {
-      if (e.target.type !== "radio") return;
+    var advance = function () {
       if (current < steps.length - 1) showStep(current + 1);
       else showResult();
+    };
+
+    // 用 click 而非 change，并处理已选中项上的空格/回车：返回上一题后再次确认原答案也能前进
+    form.addEventListener("click", function (e) {
+      if (e.target.type === "radio") advance();
+    });
+    form.addEventListener("keydown", function (e) {
+      if (e.target.type === "radio" && e.target.checked && (e.key === " " || e.key === "Enter")) {
+        e.preventDefault();
+        advance();
+      }
     });
     form.addEventListener("submit", function (e) { e.preventDefault(); });
 
